@@ -23,7 +23,7 @@ let apples = {name:'apples', amount:4}
 
 
 app.get('/', (req, res) => res.send('hello there!'))
-app.get('/index', (req, res) => res.sendFile('index.html', {root:__dirname}))
+// app.get('/index', (req, res) => res.sendFile('index.html', {root:__dirname}))
 app.get('/data', (req, res) => res.json(apples))
 app.use(express.static('./'))
 app.listen(port, () => console.log(`Example port on port ${port}`))

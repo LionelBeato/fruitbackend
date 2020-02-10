@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "bulma": "^0.8.0",
@@ -14,5 +13,10 @@
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/rocky-forest-78029.git"
+  },
+  "description": ""
 }
