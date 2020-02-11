@@ -17,11 +17,11 @@ const { buildSchema } = require('graphql');
 
 // let apples = {name:'apples', amount:4}
 
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-//   });
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 
 // app.get('/', (req, res) => res.send('hello there!'))
@@ -30,7 +30,11 @@ const { buildSchema } = require('graphql');
 // app.use(express.static('./'))
 // app.listen(port, () => console.log(`Example port on port ${port}`))
 
-
+let schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`);
 
 let root = { hello: () => 'Hello world!' };
 
