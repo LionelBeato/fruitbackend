@@ -14,17 +14,12 @@ const app = express()
 const port = process.env.PORT || 3000
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
+let cors = require('cors')
 
 // let apples = {name:'apples', amount:4}
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
-    res.header("Access-Control-Max-Age", "86400")
+app.use(cors());
 
-    next();
-  });
 
 
 // app.get('/', (req, res) => res.send('hello there!'))
