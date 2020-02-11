@@ -18,6 +18,8 @@ let cors = require('cors')
 
 // let apples = {name:'apples', amount:4}
 
+
+// middleware to use cors and allow everything
 app.use(cors());
 
 
