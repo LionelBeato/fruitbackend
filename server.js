@@ -38,10 +38,25 @@ var schema = buildSchema(`
     name: String
   }
 
+  type Fruit {
+    fruitId: ID
+    fruitName: String
+  }
+
+  type FruitType {
+    fruitTypeId: ID
+    type: String
+    fruitRepo: [Fruit]
+  }
+
   type Query {
     hello: String
 
-    user(id: Int):User
+    fruittype(id: ID):FruitType
+
+    fruittypes:[FruitType]
+
+    user(id: ID):User
     users:[User]
   }
 `);
@@ -63,12 +78,45 @@ let users = [
   }
 ]
 
-let fruitDB = {
+let fruitDB = [
   {
-    id:0
+    fruitTypeId:0,
+    type:"Citrus",
+    fruitRepo:[
+      {
+        fruitId:0,
+        fruitName:"Mandarin"
+      },
+      {
+        fruitId:1,
+        fruitName:"Tangerine"
+      },
+      {
+        fruitId:2,
+        fruitName:"Orange"
+      }
+    ]
+  },
+  {
+    fruitTypeId:1,
+    type:"Apple",
+    fruitRepo:[
+      {
+        fruitId:0,
+        fruitName:"Cosmic Crisp"
+      },
+      {
+        fruitId:1,
+        fruitName:"Honeycrisp"
+      },
+      {
+        fruitId:2,
+        fruitName:"Gala"
+      }
+    ]
   }
 
-}
+]
 
 
 
@@ -82,7 +130,13 @@ let root = {
 },
 user: ({id}) => {
   return users[id];
-}
+},
+fruittype: ({id}) => {
+  return fruitDB[id]
+},
+fruittypes: () => {
+  return fruitDB
+},
 };
 
 app.use('/graphql', graphqlHTTP({
