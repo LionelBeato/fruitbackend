@@ -30,21 +30,65 @@ app.use(cors());
 // app.use(express.static('./'))
 // app.listen(port, () => console.log(`Example port on port ${port}`))
 
-let schema = buildSchema(`
+
+// Construct a schema, using GraphQL schema language
+var schema = buildSchema(`
+  type User {
+    id: ID
+    name: String
+  }
+
   type Query {
     hello: String
+
+    user(id: Int):User
+    users:[User]
   }
 `);
 
 
+let users = [
 
-let root = { hello: () => 'Hello world!' };
+   {
+    id:"0",
+    name:"mike",
+  },
+   {
+    id:"1",
+    name:"al",
+  },
+   {
+    id:"2",
+    name:"jen",
+  }
+]
+
+let fruitDB = {
+  {
+    id:0
+  }
+
+}
+
+
+
+// The root provides a resolver function for each API endpoint
+let root = {
+  hello: () => {
+    return 'Hello world!';
+  },
+  users: () => {
+    return users;
+},
+user: ({id}) => {
+  return users[id];
+}
+};
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true,
 }));
-
 
 app.listen(port, () => console.log('Now browse to localhost:3000/graphql'));
