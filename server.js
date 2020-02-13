@@ -23,13 +23,43 @@ let cors = require('cors')
 app.use(cors());
 
 
+// middleware for express to ready body of POST methods etc 
+let bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+
+
 
 // app.get('/', (req, res) => res.send('hello there!'))
 // // app.get('/index', (req, res) => res.sendFile('index.html', {root:__dirname}))
-// app.get('/data', (req, res) => res.json(apples))
+
+
 // app.use(express.static('./'))
 // app.listen(port, () => console.log(`Example port on port ${port}`))
 
+
+// apples database (this is simply an array)
+let apples = [
+  {
+    name:"honeycrisp"
+  }
+]
+
+// this is my get method
+app.get('/data', (req, res) => res.json(apples))
+
+
+// this is my post method
+// using relational mapping to put values that the server gets back where I want them
+app.post('/', function (req, res) {
+  res.send('POST request to homepage')
+
+  // as a request, this takes in my name and uses it as a value for a new object in my array database
+  let name = req.body.name;
+  apples.push({name:`${name}`})
+  // this sends back the value of name as a res 
+  res.send(name)
+})
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
